@@ -25,6 +25,11 @@ class PicturesController < ApplicationController
   def edit
   end
 
+  def destroy
+  @picture.destroy
+  redirect_to pictures_path, notice:"削除しました！"
+  end
+
   private
 
   def pictute_params
