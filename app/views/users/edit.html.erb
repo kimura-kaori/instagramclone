@@ -1,0 +1,19 @@
+<h2>編集する</h2>
+<%= form_with(model: @user, local: true,url: choose_new_or_edit ) do |form| %>
+  <div class="field">
+    <%= image_tag(@user.image.url) if @user.image && @user.image.url %>
+  <!--画像入力-->
+    <%= form.file_field :image %>
+    <%= form.hidden_field :image_cache %>
+  </div>
+
+  <div class="user_content">
+    <%= form.label :content %>
+    <!--本文入力-->
+    <%= form.text_field :content %>
+  </div>
+  <!--更新する-->
+  <%= form.submit %>
+  <% end %>
+
+  <%= link_to "一覧画面にもどる", user_path %>

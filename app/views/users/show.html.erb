@@ -1,6 +1,14 @@
-<%= link_to "一覧画面にもどる", pictures_path %>
-<%= link_to '新たに投稿する。', new_picture_path %>
-<%= link_to '編集する。', edit_user_path %>
+<p id="notice"><%= notice %></p>
+<h1>プロフィール</h1>
+<p><%= @user.name %>のページ</p>
+<p>メールアドレス<%= @user.email %></p>
 
-<h1><%= @user.name %>のページ</h1>
-<p>メールアドレス: <%= @user.email %></p>
+<% if @user.image.present? %>
+  <p>
+    <strong>ユーザーアイコン</strong>
+    <%= image_tag @user.image.url %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
