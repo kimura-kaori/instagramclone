@@ -1,22 +1,28 @@
-<h1>投稿一覧</h1>
 
-<table>
-  <tr>
-    <th>イメージ</th>
-    <th>内容</th>
-    <th>ユーザ名</th>
-  </tr>
+  <% if @picture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @picture.errors.count %>件のエラーがあります。</h2>
+      <ul>
 
-<% @pictures.each do |picture| %>
-  <tr>
-    <td><%= image_tag (picture.image.url), width: 100 if picture.image && picture.image.url %></td>
-    <td><%= picture.content %></td>
-    <td><%= picture.user.name %></td>
-    <td><%= link_to '詳細を確認する', picture_path(picture.id) %></td>
-    <td><%= link_to '編集する', edit_picture_path(picture.id) %></td>
-    <td><%= link_to '削除する', picture_path(picture.id), method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+      <% @picture.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= link_to '新たに投稿する', new_picture_path %>
+  <%= form_with(model: @picture, local: true, url: choose_new_or_edit ) do |form| %>
+  <div class="field">
+    <%= image_tag(@picture.image.url) if @picture.image && @picture.image.url %>
+    <%= form.file_field :image %>
+    <%= form.hidden_field :image_cache %>
+  </div>
+
+  <div class="picture_content">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+  <%= form.submit %>
+  <% end %>
+
+  <%= link_to "一覧画面にもどる", pictures_path %>
