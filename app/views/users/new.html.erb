@@ -1,5 +1,5 @@
 <h1>会員登録</h1>
-<%= form_with(model: @user, local: true, url: choose_new_or_edit ) do |f| %>
+<%= form_with(model: @user, local: true ) do |f| %>
 <% if @user.errors.any? %>
   <div id="error_explanation">
   <h2><%= @user.errors.count %>件のエラーがあります。</h2>
@@ -11,13 +11,12 @@
   </div>
 <% end %>
 
-
-  <% if @user.image.present? %>
-    <p>
-      <strong>ユーザーアイコン</strong>
-      <%= image_tag @user.image.url %>
-    </p>
-
+<p>
+  <strong>ユーザーアイコン</strong>
+  <%= image_tag(@user.image.url) if @user.image && @user.image.url %>
+  <%= f.file_field :image %>
+  <%= f.hidden_field :image_cache %>
+</p>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
