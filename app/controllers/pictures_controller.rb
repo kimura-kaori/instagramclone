@@ -1,6 +1,7 @@
 class PicturesController < ApplicationController
-
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  skip_before_action :user_check, only: [:show]
+
   def index
     @pictures = Picture.all
   end
@@ -28,6 +29,11 @@ class PicturesController < ApplicationController
   end
 
   def edit
+    if @picture.user == current_user
+      render "edit"
+    else
+      redirect_to pictures_path
+    end
   end
 
   def update
@@ -44,9 +50,13 @@ class PicturesController < ApplicationController
   end
 
   def destroy
+  if @picture.user == current_user
     @picture.destroy
     redirect_to pictures_path, notice:"削除しました！"
+  else
+    redirect_to pictures_path
   end
+end
 
   private
 
