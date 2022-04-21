@@ -1,6 +1,5 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-  # skip_before_action :user_check, only: [:show]
 
   def index
     @pictures = Picture.all
@@ -28,6 +27,7 @@ class PicturesController < ApplicationController
   end
 
   def show
+    @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
 
   def edit
