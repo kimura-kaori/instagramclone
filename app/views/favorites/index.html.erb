@@ -1,0 +1,20 @@
+<h1>お気に入り一覧</h1>
+<table>
+  <tr>
+    <th>イメージ</th>
+    <th>内容</th>
+    <th>ユーザ名</th>
+  </tr>
+
+<% @favorites.each do |favorite| %>
+  <tr>
+    <td><%= image_tag(favorite.image.url) if favorite.image && favorite.image.url %></td>
+    <td><%= favorite.content %></td>
+    <td><%= favorite.user.name %></td>
+    <td><%= link_to '詳細を確認する', picture_path(favorite.id) %></td>
+  </tr>
+  <% end %>
+
+</table>
+
+  <%= link_to "一覧画面にもどる", pictures_path %>
