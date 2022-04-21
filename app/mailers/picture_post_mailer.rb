@@ -1,7 +1,7 @@
 class PicturePostMailer < ApplicationMailer
-  def picturepost_mail(picturepost)
-    @picturepost = picturepost
+  def picturepost_mail(user)
+    @user = user
 
-    mail to: @picturepost.email, subject: "お問い合わせの確認メール"
+    mail to: @user.email, subject: "投稿確認メール"
   end
 end

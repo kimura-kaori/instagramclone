@@ -1,6 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-  skip_before_action :user_check, only: [:show]
+  # skip_before_action :user_check, only: [:show]
 
   def index
     @pictures = Picture.all
@@ -19,6 +19,8 @@ class PicturesController < ApplicationController
     if params[:back]
       render :new
     elsif @picture.save
+      #picturepost_mailは引数が必要でメソッドが呼ばれた際に引数のcurrent_userを（user)で受け取る。
+      PicturePostMailer.picturepost_mail(current_user).deliver
       redirect_to pictures_path, notice: "作成しました！"
     else
       render :new
