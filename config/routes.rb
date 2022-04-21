@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'pictures#index'
   resources :sessions, only: [:new, :create, :destroy]
   resources :users
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   resources :pictures do
     collection do
