@@ -51,13 +51,13 @@ class PicturesController < ApplicationController
   end
 
   def destroy
-  if @picture.user == current_user
-    @picture.destroy
-    redirect_to pictures_path, notice:"削除しました！"
-  else
-    redirect_to pictures_path
+    if @picture.user == current_user
+      @picture.destroy
+      redirect_to pictures_path, notice:"削除しました！"
+    else
+      redirect_to pictures_path
+    end
   end
-end
 
   private
 
